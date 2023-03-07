@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/26 10:30:43 by sbadr             #+#    #+#             */
-/*   Updated: 2023/03/05 17:12:59 by sbadr            ###   ########.fr       */
+/*   Created: 2023/03/05 16:46:55 by sbadr             #+#    #+#             */
+/*   Updated: 2023/03/05 16:55:21 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini_shell.h"
 
-int looking_for_quotes(char *str, t_vars *vars)
+void cd(char *str)
 {
-	int i = 0;
-	while(str[i])
+	if (getcwd(str, 1024) == NULL)
 	{
-		if (str[i] == 34 || str[i] == 44)
-		{
-			
-		}
-		i++;
+		ft_printf("cd: no such file or directory:");
 	}
 }

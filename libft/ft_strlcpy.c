@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/26 10:30:43 by sbadr             #+#    #+#             */
-/*   Updated: 2023/03/05 17:12:59 by sbadr            ###   ########.fr       */
+/*   Created: 2022/10/11 13:18:50 by sbadr             #+#    #+#             */
+/*   Updated: 2022/10/24 11:32:54 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../mini_shell.h"
+#include "libft.h"
 
-int looking_for_quotes(char *str, t_vars *vars)
+size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
-	int i = 0;
-	while(str[i])
+	unsigned int	count;
+	unsigned int	i;
+
+	count = 0;
+	if (size == 0)
+		return (ft_strlen((char *)src));
+	while (src[count] != '\0')
+		++count;
+	i = 0;
+	while (src[i] != '\0' && i < (size - 1))
 	{
-		if (str[i] == 34 || str[i] == 44)
-		{
-			
-		}
-		i++;
+		dest[i] = src[i];
+		++i;
 	}
+	dest[i] = '\0';
+	return (count);
 }

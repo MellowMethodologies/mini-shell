@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/26 10:30:43 by sbadr             #+#    #+#             */
-/*   Updated: 2023/03/05 17:12:59 by sbadr            ###   ########.fr       */
+/*   Created: 2022/10/11 13:18:35 by sbadr             #+#    #+#             */
+/*   Updated: 2022/11/05 17:19:07 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../mini_shell.h"
+#include "libft.h"
 
-int looking_for_quotes(char *str, t_vars *vars)
+void	*ft_memset(void *str, int c, size_t n)
 {
-	int i = 0;
-	while(str[i])
+	int				i;
+	unsigned char	*p;
+
+	p = str;
+	i = 0;
+	while (n--)
 	{
-		if (str[i] == 34 || str[i] == 44)
-		{
-			
-		}
+		p[i] = (unsigned char)c;
 		i++;
 	}
+	return (str);
 }

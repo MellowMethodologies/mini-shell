@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/26 10:30:43 by sbadr             #+#    #+#             */
-/*   Updated: 2023/03/05 17:12:59 by sbadr            ###   ########.fr       */
+/*   Created: 2022/10/31 13:28:00 by sbadr             #+#    #+#             */
+/*   Updated: 2023/02/26 09:02:38 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../mini_shell.h"
+#include "libft.h"
 
-int looking_for_quotes(char *str, t_vars *vars)
+void	ft_lstclear(t_list **lst, void (*del)(void*))
 {
-	int i = 0;
-	while(str[i])
+	t_list	*aux;
+
+	if (!*lst || !del)
+		return ;
+	while (*lst)
 	{
-		if (str[i] == 34 || str[i] == 44)
-		{
-			
-		}
-		i++;
+		aux = (*lst)->next;
+		ft_lstdelone(*lst, del);
+		*lst = aux;
 	}
+	*lst = NULL;
 }

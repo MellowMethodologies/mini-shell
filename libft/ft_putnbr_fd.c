@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/26 10:30:43 by sbadr             #+#    #+#             */
-/*   Updated: 2023/03/05 17:12:59 by sbadr            ###   ########.fr       */
+/*   Created: 2022/10/18 23:46:56 by sbadr             #+#    #+#             */
+/*   Updated: 2022/10/31 16:36:06 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../mini_shell.h"
+#include "libft.h"
 
-int looking_for_quotes(char *str, t_vars *vars)
+void	ft_putnbr_fd(int n, int fd)
 {
-	int i = 0;
-	while(str[i])
+	long long int		lli;
+
+	lli = n;
+	if (lli < 0)
 	{
-		if (str[i] == 34 || str[i] == 44)
-		{
-			
-		}
-		i++;
+		ft_putchar_fd('-', fd);
+		lli = -lli;
 	}
-}
+	if (lli > 9)
+	{
+		ft_putnbr_fd(lli / 10, fd);
+		ft_putchar_fd((lli % 10) + '0', fd);
+	}
+	else
+		ft_putchar_fd(lli + '0', fd);
+}	

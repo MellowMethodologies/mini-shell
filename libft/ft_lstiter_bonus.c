@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   ft_lstiter_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/26 10:30:43 by sbadr             #+#    #+#             */
-/*   Updated: 2023/03/05 17:12:59 by sbadr            ###   ########.fr       */
+/*   Created: 2022/10/31 13:28:18 by sbadr             #+#    #+#             */
+/*   Updated: 2023/02/09 19:43:31 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../mini_shell.h"
+#include "libft.h"
 
-int looking_for_quotes(char *str, t_vars *vars)
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	int i = 0;
-	while(str[i])
+	if (!lst || !f)
+		return ;
+	while (lst != NULL)
 	{
-		if (str[i] == 34 || str[i] == 44)
-		{
-			
-		}
-		i++;
+		f(lst -> content);
+		lst = lst -> next;
 	}
 }

@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/26 10:30:43 by sbadr             #+#    #+#             */
-/*   Updated: 2023/03/05 17:12:59 by sbadr            ###   ########.fr       */
+/*   Created: 2022/10/11 13:17:35 by sbadr             #+#    #+#             */
+/*   Updated: 2022/10/11 16:19:09 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../mini_shell.h"
+#include "libft.h"
 
-int looking_for_quotes(char *str, t_vars *vars)
+int	ft_isalnum(int i)
 {
-	int i = 0;
-	while(str[i])
-	{
-		if (str[i] == 34 || str[i] == 44)
-		{
-			
-		}
-		i++;
-	}
+	if (ft_isalpha(i) || ft_isdigit(i))
+		return (1);
+	return (0);
 }

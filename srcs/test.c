@@ -1,49 +1,68 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/26 08:17:04 by sbadr             #+#    #+#             */
-/*   Updated: 2023/02/28 18:53:10 by sbadr            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../mini_shell.h"
 
-#include <sys/wait.h>
-#include <unistd.h>
-#include <string.h>
+#define ARGS 10 
 
-void print_err()
+int main(void)
 {
-	write(2,"Error!\n",7);
-	exit(1);
-}
-
-int main()
-{
-	char *line;
-	char **tokens;
-	pid_t pid = fork();
+	char *args[ARGS + 1];
+	char *line; 
+	pid_t pid;
+	//fd dyal input o loutput
+	int fd[2] = {0 , 1};
+	char buf[256];
+	int nbytes;
 	int i = 0;
-	printf("MINI-SHELL\n");
-	while (1) {
-		printf("> ");
-		line = readline(line);
+
+	while (1)
+	{
+		//readline ket9ra dak chi li t3taha fi terminalo ketrodo
+		line = readline("shell> ");
+		//add history ra ayna hiya meli ketla3 bi lashom ket3tak lcommand li derty 9bel
 		add_history(line);
-		tokens = ft_split(line, ' ');
+		char *token = strtok(line, " \n");
+		while (token != NULL && i < ARGS)
+		{
+			args[i++] = token;
+			token = strtok(NULL, " \n");
+		}
+		args[i] = NULL;  
+
+		if (strcmp(args[0], "exit") == 0)
+			break;
+
+		if (pipe(fd) == -1)
+		{
+			printf("Pipe failed\n");
+			exit(1);
+		}
+		char p[5] = "/bin/";
+		char *t = ft_strjoin(p, args[0]);
+		pid = fork();
 		if (pid < 0)
-			print_err();
+		{
+			printf("Fork failed\n");
+			exit(1);
+		}
 		else if (pid == 0)
 		{
-			if (execv(tokens[0], tokens) < 0)
-				print_err();
+			// close(fd[0]);
+			dup2(fd[1], 1);
+			//execute
+			execv(t, args);
+			printf("%s : Command not found\n",t);
+			exit(1);
 		}
 		else
-			waitpid(pid, &i, i);
-		free(tokens);
+		{
+			close(fd[1]);
+			while ((nbytes = read(fd[0], buf, sizeof(buf))) > 0)
+				write(1, buf, nbytes);
+			close(fd[0]);
+			wait(NULL);
+		}
+
+		free(t);
 		free(line);
+		i = 0;
 	}
 }

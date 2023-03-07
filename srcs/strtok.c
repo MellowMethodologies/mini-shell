@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   strtok.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/26 10:30:43 by sbadr             #+#    #+#             */
-/*   Updated: 2023/03/05 17:12:59 by sbadr            ###   ########.fr       */
+/*   Created: 2023/03/03 20:14:50 by sbadr             #+#    #+#             */
+/*   Updated: 2023/03/07 11:37:45 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini_shell.h"
 
-int looking_for_quotes(char *str, t_vars *vars)
+char *ft_strtok(char *str, const char *sep)
 {
-	int i = 0;
-	while(str[i])
-	{
-		if (str[i] == 34 || str[i] == 44)
-		{
-			
-		}
-		i++;
-	}
+	static int i = 0;
+	ft_split();
+	return (pt);
+}
+
+int main()
+{
+	char str[] = "hello world !";
+	printf("%s", ft_strtok(str, " "));
+	// printf("%s", ft_strtok(NULL, " "));
+	// printf("%s", ft_strtok(NULL, " "));
+	// printf("%s", ft_strtok(NULL, " "));
+
 }

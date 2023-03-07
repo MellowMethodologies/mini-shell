@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/26 10:30:43 by sbadr             #+#    #+#             */
-/*   Updated: 2023/03/05 17:12:59 by sbadr            ###   ########.fr       */
+/*   Created: 2022/10/11 13:18:29 by sbadr             #+#    #+#             */
+/*   Updated: 2022/11/02 18:13:04 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../mini_shell.h"
+#include "libft.h"
 
-int looking_for_quotes(char *str, t_vars *vars)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	int i = 0;
-	while(str[i])
-	{
-		if (str[i] == 34 || str[i] == 44)
-		{
-			
-		}
-		i++;
-	}
+	unsigned char	*a;
+	unsigned char	*b;
+	size_t			i;
+
+	i = 0;
+	a = (unsigned char *)src;
+	b = (unsigned char *)dest;
+	if (a != NULL || b != NULL)
+		while (0 < n--)
+			*b++ = *a++;
+	return (dest);
 }
