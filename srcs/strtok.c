@@ -6,25 +6,50 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 20:14:50 by sbadr             #+#    #+#             */
-/*   Updated: 2023/03/07 16:41:58 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/03/09 11:40:12 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini_shell.h"
 
+int avoid_sep(char *str, const char *sep)
+{
+	int i = 0;
+	int j = 0;
+	int brakes = 0;
+	int brake = 1;
+
+	while(str[i] && brake)
+	{
+		j = 0;
+		while(sep[j])
+		{
+			if(str[i] == sep[j])
+			{
+				while(sep[j] == str[i++])
+					brakes++;
+			}
+			else
+				brake = 0;
+			j++;
+		}
+		i++;
+	}
+	return(brakes);
+}
+
 char *ft_strtok(char *str, const char *sep)
 {
 	static char *arr;
 	static int status = 1;
-	static int i = 0;
-	static int var;
-	var = i;
-	char *ret;
-	int j;
-	int brakes = 1;
+	char		*ret;
+	int			var;
+	int			brakes = 1;
+	int			j;
 	if (str != NULL && status == 1)
 		arr = ft_strdup(str);
-	// printf("%s",arr);
+	int			i = avoid_sep(arr, sep);
+	// printf("i = %d \n",i);
 	while(arr[i] && brakes)
 	{
 		j = 0;
@@ -32,26 +57,25 @@ char *ft_strtok(char *str, const char *sep)
 		{
 			if(sep[j] == arr[i])
 			{
-	// i = 7 / var = 7 / arr  ->  strdup (hello world !) / ret = hello / status = 0;
-				while(arr[i] == sep[j])
-					i++;
-				ret = ft_substr(arr, var, i - var);
+				var = i;
 				brakes = 0;
 			}
 			j++;
 		}
 		i++;
 	}
+	// printf("var = %i\n",var);
+	ret = ft_substr(arr, avoid_sep(arr, sep), var);
+	arr = ft_strdup(arr + var);
 	status = 0;
 	return (ret);
 }
 
 int main()
 {
-	char str[14] = "hello world !";
-	printf("%s", ft_strtok(str, " \n"));
-	printf("%s", ft_strtok(NULL, " "));
-	printf("%s", ft_strtok(NULL, " "));
-	printf("%s", ft_strtok(NULL, " "));
-
+	char str[22] = "hello \n    world\n!";
+	printf("%s", ftstrtok(str, " \n"));
+	printf("%s", strtok(NULL, " \n"));
+	// printf("%s", strtok(NULL, " \n"));
+	// printf("%s", ft_strtok(NULL, " "));
 }

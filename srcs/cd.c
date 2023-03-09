@@ -6,16 +6,17 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/05 16:46:55 by sbadr             #+#    #+#             */
-/*   Updated: 2023/03/05 16:55:21 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/03/07 17:33:24 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini_shell.h"
 
-void cd(char *str)
-{
-	if (getcwd(str, 1024) == NULL)
-	{
-		ft_printf("cd: no such file or directory:");
-	}
+void cd(char *str) {
+write(2, "test\n", 5);
+            if (str == NULL) {
+                chdir(getenv("HOME"));
+            } else {
+                chdir(str);
+            }
 }

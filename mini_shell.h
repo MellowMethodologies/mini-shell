@@ -27,4 +27,6 @@ typedef struct s_vars {
 
 size_t	ft_strlen(const char *str);
 int		ft_printf(const char *format, ...);
+void cd(char *str);
+
 #endif
