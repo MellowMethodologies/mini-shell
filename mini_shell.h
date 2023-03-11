@@ -18,15 +18,19 @@
 #include <readline/history.h>
 #include <curses.h>
 
-char path[1024];
 
-typedef struct s_vars {
-		int double_quotes;
-		int single_quotes;
-} t_vars;
+typedef struct s_token{
+	int		type;
+	char	*value;
+	struct s_token *next;
+} t_token;
 
 size_t	ft_strlen(const char *str);
 int		ft_printf(const char *format, ...);
-void cd(char *str);
+void	cd(char *str, char *home);
+t_token	*ft_lstne(void *value, int type);
+void	add_back(t_token **lst, t_token *new);
+void lexer(char *str, t_token *lex);
+
 
 #endif

@@ -8,25 +8,49 @@ void handle(int signal)
 		exit(1);
 }
 
+void free_tokens(t_token *lst)
+{
+	t_token *tmp;
+
+	while (lst)
+	{
+		tmp = lst;
+		lst = lst->next; 
+		free(tmp ->value);
+	}
+		tmp = NULL;
+}
+
 int main(int ac, char **av, char **env)
 {
+	int p = 0;
+	int a = 0;
 	char *args[ARGS + 1];
 	char *line; 
 	pid_t pid;
+	t_token lex;
 	//fd dyal input o loutput
 	int fd[2];
 	char buf[256];
 	int nbytes;
-	char **path = ft_split(5+env[6], ':');
+	while (ft_strnstr(env[p], "PATH", 4) == NULL)
+		p++;
+	while (ft_strnstr(env[a], "HOME", 4) == NULL)
+		a++;
+	char **path = ft_split(5 + env[p], ':');
 	int i = 0;
 	int t = 0;
 	signal(SIGQUIT,handle);
 	signal(SIGINT,handle);
 	while (1)
 	{
-		//readline ket9ra dak chi li t3taha fi terminalo ketrodo
+		lex.type = 0;
+    			lex.value = NULL;
+    			lex.next = NULL;
 		line = readline("shell> ");
-		//add history ra ayna hiya meli ketla3 bi lashom ket3tak lcommand li derty 9bel
+		if (line == NULL)
+			break;
+		lexer(ft_strtrim(line, " "), &lex);
 		add_history(line);
 		char *token = strtok(line, " \n");
 		if (token == NULL)
@@ -55,20 +79,18 @@ int main(int ac, char **av, char **env)
 			close(fd[0]);
 			dup2(fd[1], 1);
 			if (ft_strncmp(args[0], "cd",  2) == 0)
-				cd(args[1]);
+				cd(args[1], ft_strchr(env[a], '/'));
 			else
 			{
 				if (ft_strchr(args[0], '/'))
-				{
-					printf("smile LLL");
 					execv(args[0], args);
-				}
 				else
 					while(execv(ft_strjoin(path[t], ft_strjoin("/", args[0])), args) == -1 && path[t])
 						t++;
 				printf("shell: command not found: %s\n",args[0]);
 				exit(1);
 			}
+			close(fd[1]);
 		}
 		else
 		{
@@ -79,6 +101,7 @@ int main(int ac, char **av, char **env)
 			wait(NULL);
 		}
 		free(line);
+		free_tokens(&lex);
 		i = 0;
 	}
 }
